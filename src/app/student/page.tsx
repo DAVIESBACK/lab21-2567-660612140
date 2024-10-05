@@ -48,7 +48,9 @@ export default function StudentPage() {
     router.push("/");
     localStorage.removeItem("token");
     localStorage.removeItem("authenUsername");
+    $authenStore.set({ token: null, authenUsername: null });  // reset store
   };
+  
 
   const callEnrollApi = async () => {
     try {
@@ -64,21 +66,16 @@ export default function StudentPage() {
       setCourseNo("");
       loadMyCourses();
     } catch (error) {
-      // if (error.response) alert(error.response.data.message);
-      // else alert(error.message);
-
       if (axios.isAxiosError(error)) {
-        console.log(error.status);
-        console.error(error.response);
-        alert(error.response?.data.message);
-        // Do something with this error...
+        console.error(error.response?.status, error.response?.data.message);
+        alert(error.response?.data.message || "An error occurred");
       } else {
         console.error(error);
-        alert(error);
+        alert("An unexpected error occurred");
       }
     }
   };
-
+  
   const callDropApi = async (drop_courseNo: string) => {
     setLoadingDropping(drop_courseNo);
     try {
@@ -91,18 +88,16 @@ export default function StudentPage() {
       loadMyCourses();
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.log(error.status);
-        console.error(error.response);
-        alert(error.response?.data.message);
-        // Do something with this error...
+        console.error(error.response?.status, error.response?.data.message);
+        alert(error.response?.data.message || "An error occurred");
       } else {
         console.error(error);
-        alert(error);
+        alert("An unexpected error occurred");
       }
     }
     setLoadingDropping("");
   };
-
+  
   return (
     <Stack>
       <Paper withBorder p="md">
