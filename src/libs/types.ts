@@ -41,8 +41,8 @@ enrollments: Enrollment[];
 users: User[];
 }
 
-export interface EnrollmentPrisma {
-studentId: string;
+export interface TEnrollment{
 courseNo: string;
+title: string;
 course: Course;
 }
